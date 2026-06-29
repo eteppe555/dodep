@@ -1,75 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <title>Renalda</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta charset="utf-8">
+  <title>Game</title>
   <style>
-    body {
-      margin: 0;
-      background: black;
-      overflow: hidden;
-    }
-    #unity-canvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-    #loading {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      font-family: sans-serif;
-    }
-    #bar {
-      width: 300px;
-      height: 10px;
-      border: 1px solid white;
-      margin-top: 10px;
-    }
-    #progress {
-      height: 100%;
-      width: 0%;
-      background: lime;
-    }
+    body { margin: 0; background: black; overflow: hidden; }
+    #unity-canvas { width: 100%; height: 100%; }
   </style>
 </head>
 
 <body>
   <canvas id="unity-canvas"></canvas>
 
-  <div id="loading">
-    Loading...
-    <div id="bar"><div id="progress"></div></div>
-  </div>
-
   <script src="Build/game.loader.js"></script>
 
   <script>
     const canvas = document.querySelector("#unity-canvas");
-    const progressBar = document.querySelector("#progress");
-    const loading = document.querySelector("#loading");
 
-    const config = {
+    createUnityInstance(canvas, {
       dataUrl: "Build/game.data.unityweb",
       frameworkUrl: "Build/game.framework.js.unityweb",
       codeUrl: "Build/game.wasm.unityweb",
       streamingAssetsUrl: "StreamingAssets",
-      companyName: "MyCompany",
-      productName: "MyGame",
+      companyName: "Game",
+      productName: "Game",
       productVersion: "1.0"
-    };
-
-    createUnityInstance(canvas, config, (progress) => {
-      progressBar.style.width = (progress * 100) + "%";
     }).then(() => {
-      loading.style.display = "none";
-    }).catch((err) => {
-      console.error(err);
-    });
+      console.log("loaded");
+    }).catch(console.error);
   </script>
 </body>
 </html>
